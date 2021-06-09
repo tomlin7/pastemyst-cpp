@@ -144,7 +144,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="paste.cpp" />
     <ClCompile Include="pastemyst.tests.cpp" />
   </ItemGroup>
   <ItemGroup>
