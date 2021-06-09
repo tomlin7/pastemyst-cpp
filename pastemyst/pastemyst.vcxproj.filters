@@ -24,12 +24,18 @@
     <ClInclude Include="pastemyst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="endpoints.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pastemyst.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="endpoints.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
