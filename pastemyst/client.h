@@ -19,10 +19,10 @@ public:
 	cpr::Response EditPaste(std::string pasteID, std::string editContent);
 	cpr::Response DeletePaste(std::string pasteID);
 
-	/*cpr::Response UserExists();
-	cpr::Response GetUser();
+	cpr::Response GetUser(std::string username);
+	bool UserExists(std::string username);
 
 	cpr::Response GetLanguage();
 
-	cpr::Response ExpiresinToUnixTimestamp();*/
+	/*cpr::Response ExpiresinToUnixTimestamp();*/
 };
