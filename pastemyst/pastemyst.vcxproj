@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="client.h" />
     <ClInclude Include="endpoints.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pastemyst.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="client.cpp" />
     <ClCompile Include="endpoints.cpp" />
     <ClCompile Include="paste.cpp" />
     <ClCompile Include="pastemyst.cpp" />
