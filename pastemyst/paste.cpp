@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "framework.h"
 
-#include "pastemyst.h"
+#include "client.h"
 #include "endpoints.h"
 
 cpr::Response Client::GetPaste(std::string pasteID) {
