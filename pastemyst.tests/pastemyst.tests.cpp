@@ -1,20 +1,21 @@
-#include <iostream>
-#include "pastemyst.h"
-#include "http.h"
+#include "pch.h"
+#include "CppUnitTest.h"
 
-int main()
+using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+
+namespace pastemysttests
 {
-    Client client = Client();
-    client.Authorize("token");
+	TEST_CLASS(pastemysttests)
+	{
+	public:
+		
+		TEST_METHOD(TestPasteEndpoint)
+		{
+			Client client;
+			std::string expectedTitle = "Public Paste Example";
+			std::string pasteTitle = client.GetPaste("oebww9n2")["title"];
 
-    // std::cout << client.GetPaste("99is6n23").text << std::endl;
-    // std::cout << client.CreatePaste("{\"isPrivate\": true, \"pasties\": [{\"title\": \"new private paste\",\"language\": \"Autodetect\",\"code\": \"new private paste content\"}]}").text << std::endl;
-    // std::cout << client.EditPaste("paste_id", "{\"pasties\": [{\"_id\": \"pasty_id\", \"title\": \"edited\",\"language\": \"Autodetect\",\"code\": \"edited paste content\"}]}").text << std::endl;
-    // std::cout << client.DeletePaste("paste_id").text << std::endl;
-
-    // std::cout << client.GetUser("billyeatcookies").text << std::endl;
-    std::cout << client.UserExists("billyeatcookies") << std::endl;
-
-    return 0;
+			Assert::AreEqual(expectedTitle, pasteTitle);
+		}
+	};
 }
-

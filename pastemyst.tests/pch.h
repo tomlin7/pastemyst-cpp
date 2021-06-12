@@ -7,11 +7,8 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that you want to pre-compile here
-#include "framework.h"
-#include "cpr/cpr.h"
-#include "nlohmann/json.hpp"
+// add headers that need to be pre-compiled
 
-using json = nlohmann::json;
+#include "pastemyst.h"
 
 #endif //PCH_H

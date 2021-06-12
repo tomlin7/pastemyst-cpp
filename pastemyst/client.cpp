@@ -16,16 +16,16 @@ void Client::Authorize(std::string auth_token) {
 	this->auth_token = auth_token;
 }
 
-//void Client::Get() {
-//
-//}
-//
-//void Client::Post() {
-//
-//}
-//void Client::Patch() {
-//
-//}
-//void Client::Delete () {
-//
-//}
+void Client::Get() {
+
+}
+
+void Client::Post() {
+
+}
+void Client::Patch() {
+
+}
+void Client::Delete () {
+
+}

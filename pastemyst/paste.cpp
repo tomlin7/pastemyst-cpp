@@ -3,11 +3,12 @@
 
 #include "client.h"
 #include "endpoints.h"
+#include "http.h"
 
-cpr::Response Client::GetPaste(std::string pasteID) {
+json Client::GetPaste(std::string pasteID) {
 	auto response = cpr::Get(
 		cpr::Url{
-			EndpointPaste + pasteID
+			EndpointPaste(pasteID)
 		},
 		cpr::Header{
 			{
@@ -15,13 +16,14 @@ cpr::Response Client::GetPaste(std::string pasteID) {
 			}
 		}
 	);
-	return response;
+
+	return json::parse(response.text);
 }
 
-cpr::Response Client::CreatePaste(std::string pasteContent) {
+json Client::CreatePaste(std::string pasteContent) {
 	auto response = cpr::Post(
 		cpr::Url{
-			EndpointPaste
+			EndpointPaste("")
 		},
 		cpr::Header{
 			{
@@ -35,13 +37,14 @@ cpr::Response Client::CreatePaste(std::string pasteContent) {
 			pasteContent
 		}
 	);
-	return response;
+
+	return json::parse(response.text);
 }
 
-cpr::Response Client::EditPaste(std::string pasteID, std::string editContent) {
+json Client::EditPaste(std::string pasteID, std::string editContent) {
 	auto response = cpr::Patch(
 		cpr::Url{
-			EndpointPaste + pasteID
+			EndpointPaste(pasteID)
 		},
 		cpr::Header{
 			{
@@ -55,13 +58,14 @@ cpr::Response Client::EditPaste(std::string pasteID, std::string editContent) {
 			editContent
 		}
 	);
-	return response;
+
+	return json::parse(response.text);
 }
 
-cpr::Response Client::DeletePaste(std::string pasteID) {
+json Client::DeletePaste(std::string pasteID) {
 	auto response = cpr::Delete(
 		cpr::Url{
-			EndpointPaste + pasteID
+			EndpointPaste(pasteID)
 		},
 		cpr::Header{
 			{
@@ -69,5 +73,21 @@ cpr::Response Client::DeletePaste(std::string pasteID) {
 			}
 		}
 	);
-	return response;
+
+	return json::parse(response.text);
+}
+
+bool Client::PasteExists(std::string pasteID) {
+	auto response = cpr::Get(
+		cpr::Url{
+			EndpointPaste(pasteID)
+		},
+		cpr::Header{
+			{
+				"Authorization", this->auth_token
+			}
+		}
+	);
+
+	return response.status_code == HTTP::ok;
 }

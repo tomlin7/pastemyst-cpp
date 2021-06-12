@@ -1,13 +1,22 @@
 #pragma once
 
-using namespace std;
+extern std::string EndpointBase;
 
-extern string EndpointBase;
+// extern std::string EndpointPaste;
+extern std::string EndpointData;
+extern std::string EndpointTime;
+extern std::string EndpointUser;
 
-extern string EndpointPaste;
-extern string EndpointDate;
-extern string EndpointTime;
-extern string EndpointUser;
+extern std::string EndpointSelfUser;
+extern std::string EndpointSelfUserPastes;
 
-extern string EndpointSelfUser;
-extern string EndpointSelfUserPastes;
+//string ato_aastring(double x) {
+//	stringstream ss;
+//	ss << x;
+//	return ss.str();
+//}
+
+std::string EndpointPaste(std::string pasteId);
+std::string DataLanguageByName(std::string name);
+std::string DataLanguageByExt(std::string extension);
+std::string TimeExpiresInToUnix(double createdAt, std::string expires);
