@@ -62,7 +62,7 @@ json Client::EditPaste(std::string pasteID, std::string editContent) {
 	return json::parse(response.text);
 }
 
-json Client::DeletePaste(std::string pasteID) {
+bool Client::DeletePaste(std::string pasteID) {
 	auto response = cpr::Delete(
 		cpr::Url{
 			EndpointPaste(pasteID)
@@ -74,7 +74,18 @@ json Client::DeletePaste(std::string pasteID) {
 		}
 	);
 
-	return json::parse(response.text);
+	return response.status_code == HTTP::ok;
+}
+
+bool Client::BulkDeletePastes(std::vector<std::string>& pasteIDs) {
+	auto finalResult = true;
+	for (auto pasteID : pasteIDs) {
+		auto result = this->DeletePaste(pasteID);
+		if (!result)
+			finalResult = false;
+	}
+
+	return finalResult;
 }
 
 bool Client::PasteExists(std::string pasteID) {
@@ -91,3 +102,27 @@ bool Client::PasteExists(std::string pasteID) {
 
 	return response.status_code == HTTP::ok;
 }
+
+
+
+//struct Pasty {
+//	char* id;
+//	char* language;
+//	char* title;
+//	char* code;
+//};
+//
+//struct Paste {
+//	char* id;
+//	char* owner_id;
+//	char* title;
+//	long double created_at;
+//	char* expires_in;
+//	long double deletes_at;
+//	long double stars;
+//	bool is_private;
+//	bool is_public;
+//	char* tags;
+//	char* pasties;
+//	char* edits;
+//};
