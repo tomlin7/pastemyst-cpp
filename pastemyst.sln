@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastemyst", "pastemyst\past
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastemyst.tests", "pastemyst.tests\pastemyst.tests.vcxproj", "{363F1469-A80F-47B0-A253-57D47B71F4AF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pastemyst.sample", "pastemyst.sample\pastemyst.sample.vcxproj", "{4811133B-7499-498B-9DDE-A070B4C658E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{363F1469-A80F-47B0-A253-57D47B71F4AF}.Release|x64.Build.0 = Release|x64
 		{363F1469-A80F-47B0-A253-57D47B71F4AF}.Release|x86.ActiveCfg = Release|Win32
 		{363F1469-A80F-47B0-A253-57D47B71F4AF}.Release|x86.Build.0 = Release|Win32
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Debug|x64.ActiveCfg = Debug|x64
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Debug|x64.Build.0 = Debug|x64
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Debug|x86.ActiveCfg = Debug|Win32
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Debug|x86.Build.0 = Debug|Win32
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Release|x64.ActiveCfg = Release|x64
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Release|x64.Build.0 = Release|x64
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Release|x86.ActiveCfg = Release|Win32
+		{4811133B-7499-498B-9DDE-A070B4C658E7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
