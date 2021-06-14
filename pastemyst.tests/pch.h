@@ -7,8 +7,7 @@
 #ifndef PCH_H
 #define PCH_H
 
-// add headers that need to be pre-compiled
-
-#include "pastemyst.h"
+// add headers that should be pre-compiled
+#include "../pastemyst/pastemyst.h"
 
 #endif //PCH_H

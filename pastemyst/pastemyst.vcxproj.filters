@@ -21,16 +21,16 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pastemyst.h">
+    <ClInclude Include="client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="endpoints.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="client.h">
+    <ClInclude Include="http.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="http.h">
+    <ClInclude Include="pastemyst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,25 +41,25 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="endpoints.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="paste.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="user.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="http.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="data.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="endpoints.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="http.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="paste.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="user.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

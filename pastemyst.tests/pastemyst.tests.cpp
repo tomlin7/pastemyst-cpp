@@ -3,6 +3,7 @@
 
 #include <map>
 #include <iostream>
+#include "../pastemyst/pastemyst.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -51,7 +52,7 @@ namespace pastemysttests
 	{
 	public:
 		// Creating the backend client and authorizing
-        Client client = Client("");
+        Client client = Client("token");
 
         TEST_METHOD(TestPasteEndpoint)
 		{

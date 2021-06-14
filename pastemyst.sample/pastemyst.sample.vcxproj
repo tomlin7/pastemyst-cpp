@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4811133b-7499-498b-9dde-a070b4c658e7}</ProjectGuid>
+    <ProjectGuid>{712eb7d1-20ff-4a13-9bc0-bd33ad607644}</ProjectGuid>
     <RootNamespace>pastemystsample</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -143,7 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\pastemyst\pastemyst.vcxproj">
-      <Project>{8863c4a1-aa06-40b5-aeab-35619d097e67}</Project>
+      <Project>{0d18088c-6f8e-4e25-9771-cfcf8ce5f2f8}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

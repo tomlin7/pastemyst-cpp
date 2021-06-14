@@ -35,7 +35,7 @@ int main()
 
     // If the Client is not authorized, it can be authorized,
     // using the `Authorize()` method.
-    client.Authorize("d2PIZzNTOM3E6skD/5L/kELI27d3pQMwvT39MajT0GE=");
+    client.Authorize("token");
 
 #pragma region PasteEndpointMethods
 
