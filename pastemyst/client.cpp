@@ -16,10 +16,14 @@ void Client::Authorize(std::string auth_token) {
 	this->auth_token = auth_token;
 }
 
+bool Client::IsAuthorized() {
+	return this->auth_token != "";
+}
+
+// TODO: To avoid duplication
 void Client::Get() {
 
 }
-
 void Client::Post() {
 
 }
