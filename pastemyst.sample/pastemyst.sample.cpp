@@ -61,15 +61,15 @@ int main()
         << "  Paste expiresIn: " << newPaste["expiresIn"].get<std::string>()
         << std::endl;
 
-    //newPaste["title"] = "editedtitle";
+    newPaste["title"] = "editedtitle";
 
-    //// Editing the paste just created.
-    //newPaste = client.EditPaste(newPasteID, newPaste);
-    //newPasteID = newPaste["_id"].get<std::string>();
-    //std::cout << "Editing the created private Paste" << std::endl
-    //    << "  Edited Paste's ID: " << newPasteID << std::endl
-    //    << "  Edited Paste's title: " << newPaste["title"].get<std::string>()
-    //    << std::endl;
+    // Editing the paste just created.
+    newPaste = client.EditPaste(newPasteID, newPaste.dump());
+    newPasteID = newPaste["_id"].get<std::string>();
+    std::cout << "Editing the created private Paste" << std::endl
+        << "  Edited Paste's ID: " << newPasteID << std::endl
+        << "  Edited Paste's title: " << newPaste["title"].get<std::string>()
+        << std::endl;
 
     // Deleting the created paste.
     std::cout << "Deleting the created-edited private Paste" << std::endl
