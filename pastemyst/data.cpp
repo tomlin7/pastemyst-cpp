@@ -5,10 +5,15 @@
 #include "endpoints.h"
 
 
-cpr::Response Client::GetLanguageByName(std::string name) {
+json Client::GetLanguageByName(std::string name) {
 	auto response = cpr::Get(
 		cpr::Url{
-			EndpointUser + name
+			DataLanguageByName
+		},
+		cpr::Parameters{
+			{
+				"name", name
+			}
 		},
 		cpr::Header{
 			{
@@ -16,13 +21,18 @@ cpr::Response Client::GetLanguageByName(std::string name) {
 			}
 		}
 	);
-	return response;
+	return json::parse(response.text);
 }
 
-cpr::Response Client::GetLanguageByExtension(std::string extension) {
+json Client::GetLanguageByExtension(std::string extension) {
 	auto response = cpr::Get(
 		cpr::Url{
-			EndpointUser + extension
+			DataLanguageByExt
+		},
+		cpr::Parameters{
+			{
+				"extension", extension
+			}
 		},
 		cpr::Header{
 			{
@@ -30,6 +40,5 @@ cpr::Response Client::GetLanguageByExtension(std::string extension) {
 			}
 		}
 	);
-	return response;
+	return json::parse(response.text);
 }
-
