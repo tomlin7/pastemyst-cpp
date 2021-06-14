@@ -10,13 +10,9 @@ extern std::string EndpointUser;
 extern std::string EndpointSelfUser;
 extern std::string EndpointSelfUserPastes;
 
-//string ato_aastring(double x) {
-//	stringstream ss;
-//	ss << x;
-//	return ss.str();
-//}
+extern std::string DataLanguageByName;
+extern std::string DataLanguageByExt;
+
+extern std::string TimeExpiresInToUnix;
 
 std::string EndpointPaste(std::string pasteId);
-std::string DataLanguageByName(std::string name);
-std::string DataLanguageByExt(std::string extension);
-std::string TimeExpiresInToUnix(double createdAt, std::string expires);
