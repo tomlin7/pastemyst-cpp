@@ -39,7 +39,7 @@ int main()
     std::string pasteID = "paste_id";
     if(client.PasteExists(pasteID)
     {
-        auto paste = client.GetPaste("pasteID");
+        auto paste = client.GetPaste(pasteID);
     }
 }
 ```
