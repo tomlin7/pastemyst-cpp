@@ -2,9 +2,9 @@
 
 #include"cpr/cpr.h"
 #include "nlohmann/json.hpp"
+#include "objects.h"
 
 using json = nlohmann::json;
-
 
 class Client {
 private:
@@ -23,23 +23,41 @@ public:
 	void Patch();
 	void Delete();
 
-	json GetPaste(std::string pasteID);
-	json CreatePaste(std::string paste_content);
-	json EditPaste(std::string pasteID, std::string editContent);
+	json RawGetPaste(std::string pasteID);
+	json RawCreatePaste(std::string pasteContent);
+	json RawEditPaste(std::string pasteID, Paste editContent);
+	json RawDeletePaste(std::string pasteID);
+	json RawBulkDeletePastes(std::vector<std::string>& pasteIDs);
+
+	Paste GetPaste(std::string pasteID);
+	Paste CreatePaste(std::string paste_content);
+	Paste EditPaste(std::string pasteID, Paste editContent);
 	bool DeletePaste(std::string pasteID);
 	bool BulkDeletePastes(std::vector<std::string>& pasteIDs);
 	bool PasteExists(std::string pasteID);
 
-	json GetUser(std::string username);
-	json GetSelfUser();
+	json RawGetUser(std::string username);
+	json RawGetSelfUser();
+	json RawGetSelfPasteIDs();
+	json RawGetSelfPasteIDsByAmount(int amount);
+	json RawGetSelfPastes();
+	json RawGetSelfPastesByAmount(int amount);
+
+	User GetUser(std::string username);
+	User GetSelfUser();
 	bool UserExists(std::string username);
 	std::vector<std::string> GetSelfPasteIDs();
 	std::vector<std::string> GetSelfPasteIDsByAmount(int amount);
-	std::vector<json> GetSelfPastes();
-	std::vector<json> GetSelfPastesByAmount(int amount);
+	std::vector<Paste> GetSelfPastes();
+	std::vector<Paste> GetSelfPastesByAmount(int amount);
 
-	json GetLanguageByName(std::string name);
-	json GetLanguageByExtension(std::string extension);
+	json RawGetLanguageByName(std::string name);
+	json RawGetLanguageByExtension(std::string extension);
+
+	Language GetLanguageByName(std::string name);
+	Language GetLanguageByExtension(std::string extension);
+
+	json RawExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn);
 
 	unsigned long ExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn);
 };

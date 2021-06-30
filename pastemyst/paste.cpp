@@ -4,8 +4,9 @@
 #include "client.h"
 #include "endpoints.h"
 #include "http.h"
+#include "objects.h"
 
-json Client::GetPaste(std::string pasteID) {
+json Client::RawGetPaste(std::string pasteID) {
 	auto response = cpr::Get(
 		cpr::Url{
 			EndpointPaste(pasteID)
@@ -20,7 +21,16 @@ json Client::GetPaste(std::string pasteID) {
 	return json::parse(response.text);
 }
 
-json Client::CreatePaste(std::string pasteContent) {
+Paste Client::GetPaste(std::string pasteID) {
+	auto rawPaste = this->RawGetPaste(pasteID);
+	
+	Paste paste;
+	paste.from_json(rawPaste, paste);
+
+	return paste;
+}
+
+json Client::RawCreatePaste(std::string pasteContent) {
 	auto response = cpr::Post(
 		cpr::Url{
 			EndpointPaste("")
@@ -41,7 +51,19 @@ json Client::CreatePaste(std::string pasteContent) {
 	return json::parse(response.text);
 }
 
-json Client::EditPaste(std::string pasteID, std::string editContent) {
+Paste Client::CreatePaste(std::string pasteContent) {
+	auto rawPaste = this->RawCreatePaste(pasteContent);
+
+	Paste paste;
+	paste.from_json(rawPaste, paste);
+
+	return paste;
+}
+
+json Client::RawEditPaste(std::string pasteID, Paste editContent) {
+	json j;
+	editContent.to_json(j, editContent);
+
 	auto response = cpr::Patch(
 		cpr::Url{
 			EndpointPaste(pasteID)
@@ -55,7 +77,31 @@ json Client::EditPaste(std::string pasteID, std::string editContent) {
 			}
 		},
 		cpr::Body{
-			editContent
+			j
+		}
+	);
+
+	return json::parse(response.text);
+}
+
+Paste Client::EditPaste(std::string pasteID, Paste editContent) {
+	auto rawPaste = this->RawEditPaste(pasteID, editContent);
+
+	Paste paste;
+	paste.from_json(rawPaste, paste);
+
+	return paste;
+}
+
+json Client::RawDeletePaste(std::string pasteID) {
+	auto response = cpr::Delete(
+		cpr::Url{
+			EndpointPaste(pasteID)
+		},
+		cpr::Header{
+			{
+				"Authorization", this->auth_token
+			}
 		}
 	);
 
@@ -75,6 +121,16 @@ bool Client::DeletePaste(std::string pasteID) {
 	);
 
 	return response.status_code == HTTP::ok;
+}
+
+json Client::RawBulkDeletePastes(std::vector<std::string>& pasteIDs) {
+	json finalResult;
+	for (auto pasteID : pasteIDs) {
+		auto result = this->DeletePaste(pasteID);
+		finalResult[pasteID] = result;
+	}
+
+	return finalResult;
 }
 
 bool Client::BulkDeletePastes(std::vector<std::string>& pasteIDs) {
@@ -102,27 +158,3 @@ bool Client::PasteExists(std::string pasteID) {
 
 	return response.status_code == HTTP::ok;
 }
-
-
-
-//struct Pasty {
-//	char* id;
-//	char* language;
-//	char* title;
-//	char* code;
-//};
-//
-//struct Paste {
-//	char* id;
-//	char* owner_id;
-//	char* title;
-//	long double created_at;
-//	char* expires_in;
-//	long double deletes_at;
-//	long double stars;
-//	bool is_private;
-//	bool is_public;
-//	char* tags;
-//	char* pasties;
-//	char* edits;
-//};

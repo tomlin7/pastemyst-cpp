@@ -5,7 +5,7 @@
 #include "endpoints.h"
 
 
-unsigned long Client::ExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn) {
+json Client::RawExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn) {
 	auto response = cpr::Get(
 		cpr::Url{
 			TimeExpiresInToUnix
@@ -25,5 +25,9 @@ unsigned long Client::ExpiresInToUnixTimestamp(unsigned long createdAt, std::str
 		}
 	);
 
-	return json::parse(response.text)["result"].get<unsigned long>();
+	return json::parse(response.text);
+}
+
+unsigned long Client::ExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn) {
+	return this->RawExpiresInToUnixTimestamp(createdAt, expiresIn)["result"] .get<unsigned long>();
 }

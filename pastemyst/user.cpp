@@ -5,8 +5,9 @@
 #include "client.h"
 #include "endpoints.h"
 #include "http.h"
+#include "objects.h"
 
-json Client::GetUser(std::string username) {
+json Client::RawGetUser(std::string username) {
 	auto response = cpr::Get(
 		cpr::Url{
 			EndpointUser + username
@@ -21,22 +22,16 @@ json Client::GetUser(std::string username) {
 	return json::parse(response.text);
 }
 
-bool Client::UserExists(std::string username) {
-	auto response = cpr::Get(
-		cpr::Url{
-			EndpointUser + username
-		},
-		cpr::Header{
-			{
-				"Authorization", this->auth_token
-			}
-		}
-	);
+User Client::GetUser(std::string username) {
+	auto rawUser = this->RawGetUser(username);
 
-	return response.status_code == HTTP::ok;
+	User user;
+	user.from_json(rawUser, user);
+
+	return user;
 }
 
-json Client::GetSelfUser() {
+json Client::RawGetSelfUser() {
 	if (!this->IsAuthorized())
 		std::cout << "Not Authorized" << std::endl;
 
@@ -54,7 +49,31 @@ json Client::GetSelfUser() {
 	return json::parse(response.text);
 }
 
-std::vector<std::string> Client::GetSelfPasteIDs() {
+User Client::GetSelfUser() {
+	auto rawSelfUser = this->RawGetSelfUser();
+
+	User selfUser;
+	selfUser.from_json(rawSelfUser, selfUser);
+
+	return selfUser;
+}
+
+bool Client::UserExists(std::string username) {
+	auto response = cpr::Get(
+		cpr::Url{
+			EndpointUser + username
+		},
+		cpr::Header{
+			{
+				"Authorization", this->auth_token
+			}
+		}
+	);
+
+	return response.status_code == HTTP::ok;
+}
+
+json Client::RawGetSelfPasteIDs() {
 	if (!this->IsAuthorized())
 		std::cout << "Not Authorized" << std::endl;
 
@@ -72,7 +91,11 @@ std::vector<std::string> Client::GetSelfPasteIDs() {
 	return json::parse(response.text);
 }
 
-std::vector<std::string> Client::GetSelfPasteIDsByAmount(int amount) {
+std::vector<std::string> Client::GetSelfPasteIDs() {
+	return this->RawGetSelfPasteIDs();
+}
+
+json Client::RawGetSelfPasteIDsByAmount(int amount) {
 	if (!this->IsAuthorized())
 		std::cout << "Not Authorized" << std::endl;
 
@@ -88,13 +111,28 @@ std::vector<std::string> Client::GetSelfPasteIDsByAmount(int amount) {
 	);
 	std::vector<std::string> result = json::parse(response.text);
 	result.resize(amount);
-	
+
 	return result;
 }
 
-std::vector<json> Client::GetSelfPastes() {
+std::vector<std::string> Client::GetSelfPasteIDsByAmount(int amount) {
+	return this->RawGetSelfPasteIDsByAmount(amount);
+}
+
+json Client::RawGetSelfPastes() {
 	auto pasteIDs = this->GetSelfPasteIDs();
 	std::vector<json> pastes;
+
+	for (auto pasteID : pasteIDs) {
+		pastes.push_back(this->RawGetPaste(pasteID));
+	}
+
+	return pastes;
+}
+
+std::vector<Paste> Client::GetSelfPastes() {
+	auto pasteIDs = this->GetSelfPasteIDs();
+	std::vector<Paste> pastes;
 
 	for (auto pasteID : pasteIDs) {
 		pastes.push_back(this->GetPaste(pasteID));
@@ -103,9 +141,21 @@ std::vector<json> Client::GetSelfPastes() {
 	return pastes;
 }
 
-std::vector<json> Client::GetSelfPastesByAmount(int amount) {
+json Client::RawGetSelfPastesByAmount(int amount) {
 	auto pasteIDs = this->GetSelfPasteIDsByAmount(amount);
 	std::vector<json> pastes;
+
+	for (auto pasteID : pasteIDs) {
+		pastes.push_back(this->RawGetPaste(pasteID));
+	}
+	pastes.resize(amount);
+
+	return pastes;
+}
+
+std::vector<Paste> Client::GetSelfPastesByAmount(int amount) {
+	auto pasteIDs = this->GetSelfPasteIDsByAmount(amount);
+	std::vector<Paste> pastes;
 
 	for (auto pasteID : pasteIDs) {
 		pastes.push_back(this->GetPaste(pasteID));

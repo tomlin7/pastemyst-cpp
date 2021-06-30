@@ -3,9 +3,9 @@
 
 #include "client.h"
 #include "endpoints.h"
+#include "objects.h"
 
-
-json Client::GetLanguageByName(std::string name) {
+json Client::RawGetLanguageByName(std::string name) {
 	auto response = cpr::Get(
 		cpr::Url{
 			DataLanguageByName
@@ -21,10 +21,20 @@ json Client::GetLanguageByName(std::string name) {
 			}
 		}
 	);
+
 	return json::parse(response.text);
 }
 
-json Client::GetLanguageByExtension(std::string extension) {
+Language Client::GetLanguageByName(std::string name) {
+	auto rawLanguage = this->RawGetLanguageByName(name);
+
+	Language language;
+	language.from_json(rawLanguage, language);
+
+	return language;
+}
+
+json Client::RawGetLanguageByExtension(std::string extension) {
 	auto response = cpr::Get(
 		cpr::Url{
 			DataLanguageByExt
@@ -41,4 +51,13 @@ json Client::GetLanguageByExtension(std::string extension) {
 		}
 	);
 	return json::parse(response.text);
+}
+
+Language Client::GetLanguageByExtension(std::string extension) {
+	auto rawLanguage = this->RawGetLanguageByExtension(extension);
+
+	Language language;
+	language.from_json(rawLanguage, language);
+
+	return language;
 }
