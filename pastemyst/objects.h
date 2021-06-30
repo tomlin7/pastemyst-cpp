@@ -37,7 +37,7 @@ struct Paste {
     bool encrypted;
     std::vector<Pasty> pasties;
 
-    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Paste, owner_id, edits, deletes_at, is_public, expires_in, stars, created_at, is_private, title, id, tags, encrypted, pasties)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Paste, owner_id, edits, deletes_at, is_public, expires_in, stars, created_at, is_private, title, id, tags, encrypted, pasties)
 };
 
 struct User {
@@ -49,7 +49,7 @@ struct User {
     std::string default_lang;
     int64_t supporter_length;
 
-    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(User, username, contributor, id, avatar_url, public_profile, default_lang, supporter_length)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(User, username, contributor, id, avatar_url, public_profile, default_lang, supporter_length)
 };
 
 struct Language {
@@ -60,7 +60,7 @@ struct Language {
     std::string mode;
     std::vector<std::string> mimes;
 
-    NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Language, ext, name, color, file, mode, mimes)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Language, ext, name, color, file, mode, mimes)
 };
 
 struct PastyCreateInfo {

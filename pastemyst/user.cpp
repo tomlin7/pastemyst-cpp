@@ -24,11 +24,7 @@ json Client::RawGetUser(std::string username) {
 
 User Client::GetUser(std::string username) {
 	auto rawUser = this->RawGetUser(username);
-
-	User user;
-	user.from_json(rawUser, user);
-
-	return user;
+	return rawUser;
 }
 
 json Client::RawGetSelfUser() {
@@ -51,11 +47,7 @@ json Client::RawGetSelfUser() {
 
 User Client::GetSelfUser() {
 	auto rawSelfUser = this->RawGetSelfUser();
-
-	User selfUser;
-	selfUser.from_json(rawSelfUser, selfUser);
-
-	return selfUser;
+	return rawSelfUser;
 }
 
 bool Client::UserExists(std::string username) {

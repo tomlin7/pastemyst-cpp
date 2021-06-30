@@ -27,11 +27,7 @@ json Client::RawGetLanguageByName(std::string name) {
 
 Language Client::GetLanguageByName(std::string name) {
 	auto rawLanguage = this->RawGetLanguageByName(name);
-
-	Language language;
-	language.from_json(rawLanguage, language);
-
-	return language;
+	return rawLanguage;
 }
 
 json Client::RawGetLanguageByExtension(std::string extension) {
@@ -55,9 +51,5 @@ json Client::RawGetLanguageByExtension(std::string extension) {
 
 Language Client::GetLanguageByExtension(std::string extension) {
 	auto rawLanguage = this->RawGetLanguageByExtension(extension);
-
-	Language language;
-	language.from_json(rawLanguage, language);
-
-	return language;
+	return rawLanguage;
 }
