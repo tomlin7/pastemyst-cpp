@@ -25,13 +25,17 @@ public:
 
 	json RawGetPaste(std::string pasteID);
 	json RawCreatePaste(std::string pasteContent);
-	json RawEditPaste(std::string pasteID, Paste editContent);
+	json RawCreatePaste(PasteCreateInfo& pasteContent);
+	json RawEditPaste(std::string pasteID, std::string editContent);
+	json RawEditPaste(std::string pasteID, Paste& editContent);
 	json RawDeletePaste(std::string pasteID);
 	json RawBulkDeletePastes(std::vector<std::string>& pasteIDs);
 
 	Paste GetPaste(std::string pasteID);
-	Paste CreatePaste(std::string paste_content);
-	Paste EditPaste(std::string pasteID, Paste editContent);
+	Paste CreatePaste(std::string pasteContent);
+	Paste CreatePaste(PasteCreateInfo& pasteContent);
+	Paste EditPaste(std::string pasteID, std::string editContent);
+	Paste EditPaste(std::string pasteID, Paste& editContent);
 	bool DeletePaste(std::string pasteID);
 	bool BulkDeletePastes(std::vector<std::string>& pasteIDs);
 	bool PasteExists(std::string pasteID);

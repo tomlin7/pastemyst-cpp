@@ -62,3 +62,22 @@ struct Language {
 
     NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(Language, ext, name, color, file, mode, mimes)
 };
+
+struct PastyCreateInfo {
+    std::string language;
+    std::string title;
+    std::string code;
+
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(PastyCreateInfo, language, title, code)
+};
+
+struct PasteCreateInfo {
+    std::string title;
+    std::string expires_in;
+    bool is_private;
+    bool is_public;
+    std::string tags;
+    std::vector<PasteCreateInfo> pasties;
+
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(PasteCreateInfo, title, expires_in, is_private, is_public, tags, pasties)
+};

@@ -51,6 +51,10 @@ json Client::RawCreatePaste(std::string pasteContent) {
 	return json::parse(response.text);
 }
 
+json Client::RawCreatePaste(PasteCreateInfo& pasteContent) {
+	return this->RawCreatePaste((json)pasteContent);
+}
+
 Paste Client::CreatePaste(std::string pasteContent) {
 	auto rawPaste = this->RawCreatePaste(pasteContent);
 
@@ -60,10 +64,11 @@ Paste Client::CreatePaste(std::string pasteContent) {
 	return paste;
 }
 
-json Client::RawEditPaste(std::string pasteID, Paste editContent) {
-	json j;
-	editContent.to_json(j, editContent);
+Paste Client::CreatePaste(PasteCreateInfo& pasteContent) {
+	return this->CreatePaste((json)pasteContent);
+}
 
+json Client::RawEditPaste(std::string pasteID, std::string editContent) {
 	auto response = cpr::Patch(
 		cpr::Url{
 			EndpointPaste(pasteID)
@@ -77,20 +82,34 @@ json Client::RawEditPaste(std::string pasteID, Paste editContent) {
 			}
 		},
 		cpr::Body{
-			j
+			editContent
 		}
 	);
 
 	return json::parse(response.text);
 }
 
-Paste Client::EditPaste(std::string pasteID, Paste editContent) {
+json Client::RawEditPaste(std::string pasteID, Paste& editContent) {
+	json j;
+	editContent.to_json(j, editContent);
+
+	return this->RawEditPaste(pasteID, j);
+}
+
+Paste Client::EditPaste(std::string pasteID, std::string editContent) {
 	auto rawPaste = this->RawEditPaste(pasteID, editContent);
 
 	Paste paste;
 	paste.from_json(rawPaste, paste);
 
 	return paste;
+}
+
+Paste Client::EditPaste(std::string pasteID, Paste& editContent) {
+	json j;
+	editContent.to_json(j, editContent);
+
+	return this->EditPaste(pasteID, j);
 }
 
 json Client::RawDeletePaste(std::string pasteID) {

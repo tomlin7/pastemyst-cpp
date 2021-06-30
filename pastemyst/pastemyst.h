@@ -1,8 +1,8 @@
 #pragma once
 
-#define PASTEMYST_VERSION_MAJOR 1
-#define PASTEMYST_VERSION_MINOR 8
-#define PASTEMYST_VERSION_MICRO 2
+#define PASTEMYST_VERSION_MAJOR 2
+#define PASTEMYST_VERSION_MINOR 0
+#define PASTEMYST_VERSION_MICRO 0
 
 #include "client.h"
 #include "objects.h"
