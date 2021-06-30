@@ -6,7 +6,7 @@
 
 <h1 align="center"> 
     <a href="https://github.com/billyeatcookies/pastemyst-cpp/actions">
-        <img alt="Build status" src="https://img.shields.io/github/workflow/status/billyeatcookies/pastemyst-cpp/build?logo=Github&style=for-the-badge">
+        <img alt="Build status" src="https://img.shields.io/github/issues-pr/billyeatcookies/pastemyst.cpp?style=for-the-badge">
     </a>
     <a href="https://github.com/billyeatcookies/pastemyst-cpp/issues">
         <img alt="GitHub issues" src="https://img.shields.io/github/issues/billyeatcookies/pastemyst-cpp?style=for-the-badge&logo=github">
@@ -39,7 +39,7 @@ int main()
     std::string pasteID = "paste_id";
     if(client.PasteExists(pasteID)
     {
-        auto paste = client.GetPaste("pasteID");
+        auto paste = client.GetPaste(pasteID);
     }
 }
 ```
