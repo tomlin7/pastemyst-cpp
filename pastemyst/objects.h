@@ -64,9 +64,9 @@ struct Language {
 };
 
 struct PastyCreateInfo {
-    std::string language;
     std::string title;
     std::string code;
+    std::string language;
 
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(PastyCreateInfo, language, title, code)
 };
