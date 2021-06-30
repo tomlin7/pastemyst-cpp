@@ -77,7 +77,7 @@ struct PasteCreateInfo {
     bool is_private;
     bool is_public;
     std::string tags;
-    std::vector<PasteCreateInfo> pasties;
+    std::vector<PastyCreateInfo> pasties;
 
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(PasteCreateInfo, title, expires_in, is_private, is_public, tags, pasties)
 };
