@@ -5,6 +5,7 @@
 #include "endpoints.h"
 #include "http.h"
 #include "objects.h"
+#include <iostream>
 
 json Client::RawGetUser(std::string username) {
 	auto response = cpr::Get(
