@@ -9,41 +9,33 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace pastemysttests
 {
-    // Sample PasteCreateInfo for public paste creation
-    const auto newPublicPasteContent = R"(
+    // Sample Pasties
+    const std::vector<PastyCreateInfo> newTestPasties {
         {
-            "title": "pastemysttest",
-            "expiresIn": "1h",
-            "isPrivate": false,
-            "isPublic": false,
-            "tags": "pastemyst, test",
-            "pasties": [
-                {
-                    "title": "testpublicpaste",
-                    "language": "Autodetect",
-                    "code": "test public paste content"
-                }
-            ]
+            "New Test Pasty Title",
+            "New Test Pasty Content",
+            "AutoDetect"
+        },
+        {
+            "New Second Test Pasty Title",
+            "New Second Test Pasty Content",
+            "AutoDetect"
         }
-    )";
+        // ... 
+    };
+
+
+    // Sample PasteCreateInfo for public paste creation
+    PasteCreateInfo newTestPublicPaste {
+        "pastemystcpptest-public", "1h", false, false,
+        "pastemyst, test", newTestPasties
+    };
 
     // Sample PasteCreateInfo for private paste creation
-    const auto newPrivatePasteContent = R"(
-        {
-            "title": "pastemystcpptest",
-            "expiresIn": "1h",
-            "isPrivate": true,
-            "isPublic": false,
-            "tags": "pastemyst, test",
-            "pasties": [
-                {
-                    "title": "testprivatepaste",
-                    "language": "Autodetect",
-                    "code": "test private paste content"
-                }
-            ]
-        }
-    )";
+    PasteCreateInfo newTestPrivatePaste = {
+        "pastemystcpptest-private", "1h", true, false,
+        "pastemyst, test", newTestPasties
+    };
 
     // Sample public profile
     const auto sampleUsername = "billyeatcookies";
@@ -52,7 +44,7 @@ namespace pastemysttests
     {
     public:
         // Creating the backend client and authorizing
-        Client client = Client("token");
+        Client client = Client("P9Q1UqWyJusxiqO3bsgDXnWFH/etNE3Jzoq7gRLoSfI=");
 
         TEST_METHOD(TestPasteEndpoint)
         {
@@ -66,33 +58,34 @@ namespace pastemysttests
                 std::string expectedTitle = "public paste example title";
                 std::string expectedExpiresIn = "never";
                 auto fetchedPaste = client.GetPaste("99is6n23");
-                Assert::AreEqual(expectedTitle, fetchedPaste["title"].get<std::string>());
-                Assert::AreEqual(expectedExpiresIn, fetchedPaste["expiresIn"].get<std::string>());
+                Assert::AreEqual(expectedTitle, fetchedPaste.title);
+                Assert::AreEqual(expectedExpiresIn, fetchedPaste.expiresIn);
             }
 
             // CreatePaste Public
-            json newPublicPaste = client.CreatePaste(newPublicPasteContent);
-            std::string expectedTitle = "pastemysttest";
+            auto newPublicPaste = client.CreatePaste(newTestPublicPaste);
+            std::string expectedTitle = "pastemystcpptest-public";
             std::string expectedExpiresIn = "1h";
-            Assert::AreEqual(expectedTitle, newPublicPaste["title"].get<std::string>());
-            Assert::AreEqual(expectedExpiresIn, newPublicPaste["expiresIn"].get<std::string>());
+            Assert::AreEqual(expectedTitle, newPublicPaste.title);
+            Assert::AreEqual(expectedExpiresIn, newPublicPaste.expiresIn);
 
             if (client.IsAuthorized())
             {
                 // CreatePaste Private
-                json newPrivatePaste = client.CreatePaste(newPrivatePasteContent);
-                auto newPasteID = newPrivatePaste["_id"].get<std::string>();
-                expectedTitle = "pastemystcpptest";
+                auto newPrivatePaste = client.CreatePaste(newTestPrivatePaste);
+                auto newPasteID = newPrivatePaste._id;
+                expectedTitle = "pastemystcpptest-private";
                 expectedExpiresIn = "1h";
-                Assert::AreEqual(expectedTitle, newPrivatePaste["title"].get<std::string>());
-                Assert::AreEqual(expectedExpiresIn, newPrivatePaste["expiresIn"].get<std::string>());
-                Assert::IsTrue(newPrivatePaste["isPrivate"].get<bool>());
+                Assert::AreEqual(expectedTitle, newPrivatePaste.title);
+                Assert::AreEqual(expectedExpiresIn, newPrivatePaste.expiresIn);
+                Assert::IsTrue(newPrivatePaste.isPrivate);
+
                 // EditPaste
-                newPrivatePaste["title"] = "pastemystcpptestedit";
-                newPrivatePaste = client.EditPaste(newPasteID, newPrivatePaste.dump());
-                newPasteID = newPrivatePaste["_id"].get<std::string>();
+                newPrivatePaste.title = "pastemystcpptestedit";
+                newPrivatePaste = client.EditPaste(newPasteID, newPrivatePaste);
+                newPasteID = newPrivatePaste._id;
                 expectedTitle = "pastemystcpptestedit";
-                Assert::AreEqual(expectedTitle, newPrivatePaste["title"].get<std::string>());
+                Assert::AreEqual(expectedTitle, newPrivatePaste.title);
 
                 // DeletePaste
                 auto pasteDeleted = client.DeletePaste(newPasteID);
@@ -110,16 +103,16 @@ namespace pastemysttests
             {
                 // GetUser
                 auto fetchedProfile = client.GetUser(sampleUsername);
-                Assert::AreEqual(std::string("billyeatcookies"), fetchedProfile["username"].get<std::string>());
-                Assert::IsFalse(fetchedProfile["contributor"].get<bool>());
+                Assert::AreEqual(std::string("billyeatcookies"), fetchedProfile.username);
+                Assert::IsFalse(fetchedProfile.contributor);
             }
 
             if (client.IsAuthorized())
             {
                 // GetSelfUser
                 auto fetchedSelfProfile = client.GetSelfUser();
-                Assert::AreEqual(std::string("billyeatcookies"), fetchedSelfProfile["username"].get<std::string>());
-                Assert::IsFalse(fetchedSelfProfile["contributor"].get<bool>());
+                Assert::AreEqual(std::string("billyeatcookies"), fetchedSelfProfile.username);
+                Assert::IsFalse(fetchedSelfProfile.contributor);
             }
         }
 
@@ -127,13 +120,13 @@ namespace pastemysttests
         {
             // GetLanguageByName
             auto fetchedLanguageUsingName = client.GetLanguageByName("C++");
-            Assert::AreEqual(std::string("C++"), fetchedLanguageUsingName["name"].get<std::string>());
-            Assert::AreEqual(std::string("clike"), fetchedLanguageUsingName["mode"].get<std::string>());
+            Assert::AreEqual(std::string("C++"), fetchedLanguageUsingName.name);
+            Assert::AreEqual(std::string("clike"), fetchedLanguageUsingName.mode);
 
             // GetLanguageByExtension
             auto fetchedLanguageUsingExt = client.GetLanguageByExtension("cpp");
-            Assert::AreEqual(std::string("C++"), fetchedLanguageUsingExt["name"].get<std::string>());
-            Assert::AreEqual(std::string("clike"), fetchedLanguageUsingExt["mode"].get<std::string>());
+            Assert::AreEqual(std::string("C++"), fetchedLanguageUsingExt.name);
+            Assert::AreEqual(std::string("clike"), fetchedLanguageUsingExt.mode);
         }
 
         TEST_METHOD(TestTimeEndpoint)
