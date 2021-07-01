@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "framework.h"
 
-#include <iostream>
 #include "endpoints.h"
 
 std::string EndpointBase  = "https://paste.myst.rs/api/v2/";
