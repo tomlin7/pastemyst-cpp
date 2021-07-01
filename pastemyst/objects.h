@@ -1,16 +1,17 @@
 #pragma once
 
-#include <iostream>
-
 struct Edit {
     std::string _id;
-    int64_t editId;
-    int64_t editType;
+    unsigned long editId;
+    unsigned long editType;
     std::vector<std::string> metadata;
     std::string edit;
-    int64_t editedAt;
+    unsigned long editedAt;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Edit, _id, editId, editType, metadata, edit, editedAt)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        Edit,_id, editId, editType, 
+        metadata, edit, editedAt
+    )
 };
 
 struct Pasty {
@@ -19,25 +20,32 @@ struct Pasty {
     std::string title;
     std::string code;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Pasty, _id, language, title, code)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        Pasty, _id, language, 
+        title, code
+    )
 };
 
 struct Paste {
-    std::string ownerId;
-    std::vector<Edit> edits;
-    int64_t deletesAt;
-    bool isPublic;
-    std::string expiresIn;
-    int64_t stars;
-    int64_t createdAt;
-    bool isPrivate;
-    std::string title;
     std::string _id;
+    std::string ownerId;
+    std::string title;
+    unsigned long createdAt;
+    std::string expiresIn;
+    unsigned long deletesAt;
+    unsigned long stars;
+    bool isPrivate;
+    bool isPublic;
     std::vector<std::string> tags;
-    bool encrypted;
     std::vector<Pasty> pasties;
+    std::vector<Edit> edits;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Paste, ownerId, edits, deletesAt, isPublic, expiresIn, stars, createdAt, isPrivate, title, _id, tags, encrypted, pasties)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        Paste, _id, ownerId, title, 
+        createdAt, expiresIn, deletesAt, 
+        edits, stars, isPrivate, isPublic, 
+        tags, pasties, edits
+    )
 };
 
 struct User {
@@ -47,20 +55,26 @@ struct User {
     std::string avatarUrl;
     bool publicProfile;
     std::string defaultLang;
-    int64_t supporterLength;
+    unsigned long supporterLength;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(User, username, contributor, _id, avatarUrl, publicProfile, defaultLang, supporterLength)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        User, username, contributor, 
+        _id, avatarUrl, publicProfile, 
+        defaultLang, supporterLength
+    )
 };
 
 struct Language {
-    std::vector<std::string> ext;
     std::string name;
-    std::string color;
-    std::string file;
     std::string mode;
     std::vector<std::string> mimes;
+    std::vector<std::string> ext;
+    std::string color;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Language, ext, name, color, file, mode, mimes)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        Language, name, mode, 
+        mimes, ext, color
+    )
 };
 
 struct PastyCreateInfo {
@@ -68,7 +82,10 @@ struct PastyCreateInfo {
     std::string code;
     std::string language;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(PastyCreateInfo, language, title, code)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        PastyCreateInfo, title, 
+        code, language
+    )
 };
 
 struct PasteCreateInfo {
@@ -79,5 +96,8 @@ struct PasteCreateInfo {
     std::string tags;
     std::vector<PastyCreateInfo> pasties;
 
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(PasteCreateInfo, title, expiresIn, isPrivate, isPublic, tags, pasties)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        PasteCreateInfo, title, expiresIn, 
+        isPrivate, isPublic, tags, pasties
+    )
 };
