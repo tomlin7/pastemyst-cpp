@@ -44,7 +44,7 @@ namespace pastemysttests
     {
     public:
         // Creating the backend client and authorizing
-        Client client = Client("P9Q1UqWyJusxiqO3bsgDXnWFH/etNE3Jzoq7gRLoSfI=");
+        Client client = Client("token here");
 
         TEST_METHOD(TestPasteEndpoint)
         {
