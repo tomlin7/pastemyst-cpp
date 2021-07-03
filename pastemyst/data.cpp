@@ -14,11 +14,6 @@ json Client::RawGetLanguageByName(std::string name) {
 			{
 				"name", name
 			}
-		},
-		cpr::Header{
-			{
-				"Authorization", this->auth_token
-			}
 		}
 	);
 
@@ -38,11 +33,6 @@ json Client::RawGetLanguageByExtension(std::string extension) {
 		cpr::Parameters{
 			{
 				"extension", extension
-			}
-		},
-		cpr::Header{
-			{
-				"Authorization", this->auth_token
 			}
 		}
 	);

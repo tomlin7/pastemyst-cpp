@@ -49,7 +49,7 @@ public:
 	json RawGetSelfPastesByAmount(int amount);
 
 	User GetUser(std::string username);
-	User GetSelfUser();
+	UserPlus GetSelfUser();
 	bool UserExists(std::string username);
 	std::vector<std::string> GetSelfPasteIDs();
 	std::vector<std::string> GetSelfPasteIDsByAmount(int amount);

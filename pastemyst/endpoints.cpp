@@ -20,3 +20,7 @@ std::string TimeExpiresInToUnix = EndpointTime + "expiresInToUnixTime";
 std::string EndpointPaste(std::string pasteId) {
 	return EndpointBase + "paste/" + pasteId;
 }
+
+std::string EndpointUserExists(std::string username) {
+	return EndpointUser + username + "/exists";
+}

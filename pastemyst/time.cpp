@@ -18,11 +18,6 @@ json Client::RawExpiresInToUnixTimestamp(unsigned long createdAt, std::string ex
 			{
 				"expiresIn", expiresIn
 			} 
-		},
-		cpr::Header{
-			{
-				"Authorization", this->auth_token
-			}
 		}
 	);
 

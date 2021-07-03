@@ -11,11 +11,6 @@ json Client::RawGetUser(std::string username) {
 	auto response = cpr::Get(
 		cpr::Url{
 			EndpointUser + username
-		},
-		cpr::Header{
-			{
-				"Authorization", this->auth_token
-			}
 		}
 	);
 
@@ -45,7 +40,7 @@ json Client::RawGetSelfUser() {
 	return json::parse(response.text);
 }
 
-User Client::GetSelfUser() {
+UserPlus Client::GetSelfUser() {
 	auto rawSelfUser = this->RawGetSelfUser();
 	return rawSelfUser;
 }
@@ -53,12 +48,7 @@ User Client::GetSelfUser() {
 bool Client::UserExists(std::string username) {
 	auto response = cpr::Get(
 		cpr::Url{
-			EndpointUser + username
-		},
-		cpr::Header{
-			{
-				"Authorization", this->auth_token
-			}
+			EndpointUserExists(username)
 		}
 	);
 

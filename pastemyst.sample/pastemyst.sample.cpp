@@ -46,7 +46,7 @@ int main()
 
     // If the Client is not authorized, it can be authorized using the `Authorize()` method.
     // NOTE: Replace the token with your pastemyst token, https://paste.myst.rs/user/settings
-    client.Authorize("token");
+    client.Authorize("token here");
 
 #pragma region PasteEndpointMethods
 

@@ -16,3 +16,4 @@ extern std::string DataLanguageByExt;
 extern std::string TimeExpiresInToUnix;
 
 std::string EndpointPaste(std::string pasteId);
+std::string EndpointUserExists(std::string username);

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
+
 struct Edit {
     std::string _id;
     unsigned long editId;
@@ -64,6 +68,26 @@ struct User {
     )
 };
 
+struct UserPlus {
+    std::string username;
+    bool contributor;
+    std::string _id;
+    std::string avatarUrl;
+    bool publicProfile;
+    std::string defaultLang;
+    unsigned long supporterLength;
+
+    std::vector<std::string> stars;
+    json serviceIds;
+
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(
+        UserPlus, username, contributor,
+        _id, avatarUrl, publicProfile,
+        defaultLang, supporterLength,
+        stars, serviceIds
+    )
+};
+
 struct Language {
     std::string name;
     std::string mode;
@@ -80,7 +104,7 @@ struct Language {
 struct PastyCreateInfo {
     std::string title;
     std::string code;
-    std::string language;
+    std::string language = "AutoDetect";
 
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(
         PastyCreateInfo, title, 
@@ -89,11 +113,11 @@ struct PastyCreateInfo {
 };
 
 struct PasteCreateInfo {
-    std::string title;
-    std::string expiresIn;
-    bool isPrivate;
-    bool isPublic;
-    std::string tags;
+    std::string title = "(Untitled)";
+    std::string expiresIn = "never";
+    bool isPrivate = false;
+    bool isPublic = false;
+    std::string tags = "";
     std::vector<PastyCreateInfo> pasties;
 
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(
