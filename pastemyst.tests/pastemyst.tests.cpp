@@ -132,11 +132,11 @@ namespace pastemysttests
         TEST_METHOD(TestTimeEndpoint)
         {
             // ExpiresInToUnixTimestamp
-            std::map<std::pair<unsigned long, std::string>, unsigned long> timeTests{
-                {{1615242814, "2h"}, 1615250014},
-                {{1615121479, "1d"}, 1615207879},
-                {{1615297946, "1w"}, 1615902746},
-                {{1588441258, "1w"}, 1589046058}
+            std::map<std::pair<unsigned long, ExpiresIn>, unsigned long> timeTests{
+                {{1615242814, ExpiresIn::TwoHours}, 1615250014},
+                {{1615121479, ExpiresIn::OneDay}, 1615207879},
+                {{1615297946, ExpiresIn::OneWeek}, 1615902746},
+                {{1588441258, ExpiresIn::OneWeek}, 1589046058}
             };
             for (const auto& p : timeTests)
             {

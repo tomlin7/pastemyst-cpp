@@ -3,6 +3,7 @@
 #include"cpr/cpr.h"
 #include "nlohmann/json.hpp"
 #include "objects.h"
+#include "misc.h"
 
 using json = nlohmann::json;
 
@@ -61,7 +62,11 @@ public:
 	Language GetLanguageByName(std::string name);
 	Language GetLanguageByExtension(std::string extension);
 
+	std::string GetExpiresInString(ExpiresIn expiresIn);
+
 	json RawExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn);
+	json RawExpiresInToUnixTimestamp(unsigned long createdAt, ExpiresIn expiresIn);
 
 	unsigned long ExpiresInToUnixTimestamp(unsigned long createdAt, std::string expiresIn);
+	unsigned long ExpiresInToUnixTimestamp(unsigned long createdAt, ExpiresIn expiresIn);
 };

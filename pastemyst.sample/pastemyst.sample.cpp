@@ -144,7 +144,7 @@ int main()
 
     // Converting expiresIn value to a specific time 
     // when a paste should expire
-    auto fetchedTimestamp = client.ExpiresInToUnixTimestamp(1615297946, "1w");
+    auto fetchedTimestamp = client.ExpiresInToUnixTimestamp(1615297946, ExpiresIn::OneWeek);
     std::cout << "Converting expiresIn value to a unix timestamp" << std::endl
         << "  Result: " << fetchedTimestamp
         << std::endl;

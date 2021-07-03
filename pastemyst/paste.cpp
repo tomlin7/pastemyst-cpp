@@ -3,7 +3,7 @@
 
 #include "client.h"
 #include "endpoints.h"
-#include "http.h"
+#include "misc.h"
 #include "objects.h"
 
 json Client::RawGetPaste(std::string pasteID) {
@@ -122,7 +122,7 @@ bool Client::DeletePaste(std::string pasteID) {
 		}
 	);
 
-	return response.status_code == HTTP::ok;
+	return response.status_code == (int)HTTP::ok;
 }
 
 json Client::RawBulkDeletePastes(std::vector<std::string>& pasteIDs) {
@@ -158,5 +158,5 @@ bool Client::PasteExists(std::string pasteID) {
 		}
 	);
 
-	return response.status_code == HTTP::ok;
+	return response.status_code == (int)HTTP::ok;
 }

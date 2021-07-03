@@ -3,7 +3,7 @@
 
 #include "client.h"
 #include "endpoints.h"
-#include "http.h"
+#include "misc.h"
 #include "objects.h"
 #include <iostream>
 
@@ -62,7 +62,7 @@ bool Client::UserExists(std::string username) {
 		}
 	);
 
-	return response.status_code == HTTP::ok;
+	return response.status_code == (int)HTTP::ok;
 }
 
 json Client::RawGetSelfPasteIDs() {

@@ -154,7 +154,7 @@
     <ClInclude Include="client.h" />
     <ClInclude Include="endpoints.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="http.h" />
+    <ClInclude Include="misc.h" />
     <ClInclude Include="objects.h" />
     <ClInclude Include="pastemyst.h" />
     <ClInclude Include="pch.h" />
@@ -163,7 +163,7 @@
     <ClCompile Include="client.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="endpoints.cpp" />
-    <ClCompile Include="http.cpp" />
+    <ClCompile Include="misc.cpp" />
     <ClCompile Include="objects.cpp" />
     <ClCompile Include="paste.cpp" />
     <ClCompile Include="pastemyst.cpp" />
